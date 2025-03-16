@@ -8,21 +8,18 @@ const adminApp = require("./APIs/adminApi");
 const cors = require("cors");
 
 app.use(cors());
-const port = process.env.PORT || 4000;
+app.use(express.json());
 
 // Database connection
 mongoose
   .connect(process.env.DBURL)
-  .then(() => {
-    console.log("DB connection success");
-    app.listen(port, () => console.log(`Server listening on port ${port}...`));
-  })
+  .then(() => console.log("DB connection success"))
   .catch((err) => {
     console.error("Error in DB connection:", err);
     process.exit(1); // Exit process on DB connection failure
   });
 
-app.use(express.json());
+// Routes
 app.use("/user-api", userApp);
 app.use("/author-api", authorApp);
 app.use("/admin-api", adminApp);
@@ -32,3 +29,6 @@ app.use((err, req, res, next) => {
   console.error("Error in express error handler:", err);
   res.status(500).json({ message: "Internal Server Error" });
 });
+
+// Export app for Vercel
+module.exports = app;
