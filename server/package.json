@@ -8,7 +8,7 @@
     "dev": "nodemon server.js",
     "vercel-build": "echo 'Build complete. No frontend to build.'"
   },
-  "author": "advaith",
+  "author": "Agnivesh",
   "license": "ISC",
   "description": "",
   "dependencies": {
